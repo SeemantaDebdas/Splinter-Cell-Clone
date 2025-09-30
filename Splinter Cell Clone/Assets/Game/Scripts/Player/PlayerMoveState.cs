@@ -12,6 +12,8 @@ public class PlayerMoveState : PlayerState
         base.Enter();
 
         player.InputReader.OnMoveCancelled += SwitchToIdleState;
+
+        player.Animator.CrossFadeInFixedTime("Move", 0.1f);
     }
     public override void Exit()
     {
@@ -38,6 +40,8 @@ public class PlayerMoveState : PlayerState
 
         Quaternion targetRotation = Quaternion.LookRotation(moveDir);
         player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, targetRotation, player.RotationSpeed * Time.deltaTime);
+
+        player.Animator.SetFloat("moveSpeed", player.MoveSpeed, 0.1f, Time.deltaTime);
     }
 
 }

@@ -9,6 +9,7 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
 
     public Action OnMoveCancelled;
     public Action<Vector2> OnMovePerformed;
+    public Action<bool> OnSprintUpdated;
     public Vector2 MoveInput;
     private void OnEnable()
     {
@@ -31,5 +32,14 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
             OnMovePerformed?.Invoke(context.ReadValue<Vector2>());
 
         MoveInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnSprintUpdated?.Invoke(true);
+
+        if (context.canceled)
+            OnSprintUpdated?.Invoke(false);
     }
 }

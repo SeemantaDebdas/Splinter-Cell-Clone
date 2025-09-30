@@ -12,6 +12,8 @@ public class PlayerIdleState : PlayerState
         base.Enter();
 
         player.InputReader.OnMovePerformed += SwitchToMoveState;
+
+        player.Animator.CrossFadeInFixedTime("Idle", 0.1f);
     }
 
     public override void Exit()
