@@ -12,6 +12,8 @@ public class PlayerIdleState : PlayerState
         base.Enter();
 
         player.InputReader.OnMovePerformed += SwitchToMoveState;
+        player.InputReader.OnCrouchUpdated += SwitchToCrouchIdleState;
+
 
         player.Animator.CrossFadeInFixedTime("Idle", 0.1f);
     }
@@ -21,6 +23,14 @@ public class PlayerIdleState : PlayerState
         base.Exit();
 
         player.InputReader.OnMovePerformed -= SwitchToMoveState;
+        player.InputReader.OnCrouchUpdated -= SwitchToCrouchIdleState;
+
+    }
+
+    private void SwitchToCrouchIdleState(bool shouldCrouch)
+    {
+        if (shouldCrouch)
+            statemachine.SwitchState(player.CrouchIdleState);
     }
 
 

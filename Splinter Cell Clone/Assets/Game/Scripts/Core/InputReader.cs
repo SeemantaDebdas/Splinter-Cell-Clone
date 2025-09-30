@@ -9,7 +9,7 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
 
     public Action OnMoveCancelled;
     public Action<Vector2> OnMovePerformed;
-    public Action<bool> OnSprintUpdated;
+    public Action<bool> OnSprintUpdated, OnCrouchUpdated;
     public Vector2 MoveInput;
     private void OnEnable()
     {
@@ -41,5 +41,15 @@ public class InputReader : ScriptableObject, Controls.IPlayerActions
 
         if (context.canceled)
             OnSprintUpdated?.Invoke(false);
+    }
+
+    bool isCrouching = false;
+    public void OnCrouch(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isCrouching = !isCrouching;
+            OnCrouchUpdated?.Invoke(isCrouching);
+        }
     }
 }

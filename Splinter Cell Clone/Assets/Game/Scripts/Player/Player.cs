@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     [field: Header("Stats")]
     [field: SerializeField] public float WalkSpeed { get; private set; } = 1.7f;
     [field: SerializeField] public float RunSpeed { get; private set; } = 2.75f;
+    [field: SerializeField] public float CrouchWalkSpeed { get; private set; } = 1f;
+    [field: SerializeField] public float CrouchRunSpeed { get; private set; } = 1.8f;
     [field: SerializeField] public float RotationSpeed { get; private set; } = 60;
 
     public float MoveSpeed { get; private set; } = 0;
@@ -20,17 +22,18 @@ public class Player : MonoBehaviour
 
     public PlayerIdleState IdleState { get; private set; }
     public PlayerMoveState MoveState { get; private set; }
+    public PlayerCrouchIdleState CrouchIdleState { get; private set; }
+    public PlayerCrouchMoveState CrouchMoveState { get; private set; }
 
     void Awake()
     {
         InitializeComponents();
-        InitializeStats();
         InitializeStates();
+        InitializeStats();
     }
 
     void InitializeStats()
     {
-        HandleMoveSpeed(false);
     }
 
     void InitializeComponents()
@@ -45,26 +48,12 @@ public class Player : MonoBehaviour
 
         IdleState = new PlayerIdleState(this, statemachine);
         MoveState = new PlayerMoveState(this, statemachine);
+        CrouchIdleState = new PlayerCrouchIdleState(this, statemachine);
+        CrouchMoveState = new PlayerCrouchMoveState(this, statemachine);
 
         statemachine.Initialize(IdleState);
     }
 
-
-    void OnEnable()
-    {
-        InputReader.OnSprintUpdated += HandleMoveSpeed;
-    }
-
-    void OnDisable()
-    {
-        InputReader.OnSprintUpdated -= HandleMoveSpeed;
-
-    }
-
-    private void HandleMoveSpeed(bool shouldSprint)
-    {
-        MoveSpeed = shouldSprint ? RunSpeed : WalkSpeed;
-    }
 
     void Update()
     {

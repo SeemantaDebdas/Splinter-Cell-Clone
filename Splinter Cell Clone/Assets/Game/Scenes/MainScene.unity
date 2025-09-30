@@ -806,6 +806,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8303699931754240115, guid: 287b7096d1d2b0e41b7fa68043fa95ab, type: 3}
+      propertyPath: <MoveSpeed>k__BackingField
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8303699931754240115, guid: 287b7096d1d2b0e41b7fa68043fa95ab, type: 3}
+      propertyPath: <CrouchRunSpeed>k__BackingField
+      value: 1.7
+      objectReference: {fileID: 0}
     - target: {fileID: 9195938491820809123, guid: 287b7096d1d2b0e41b7fa68043fa95ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

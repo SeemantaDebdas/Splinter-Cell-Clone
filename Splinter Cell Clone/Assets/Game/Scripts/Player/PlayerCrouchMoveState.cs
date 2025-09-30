@@ -1,10 +1,10 @@
 using System;
 using UnityEngine;
 
-public class PlayerMoveState : PlayerState
+public class PlayerCrouchMoveState : PlayerState
 {
-    float moveSpeed;
-    public PlayerMoveState(Player player, PlayerStatemachine statemachine) : base(player, statemachine)
+    float moveSpeed = 0;
+    public PlayerCrouchMoveState(Player player, PlayerStatemachine statemachine) : base(player, statemachine)
     {
     }
 
@@ -13,35 +13,35 @@ public class PlayerMoveState : PlayerState
         base.Enter();
 
         player.InputReader.OnMoveCancelled += SwitchToIdleState;
-        player.InputReader.OnCrouchUpdated += SwitchToCrouchIdleState;
+        player.InputReader.OnCrouchUpdated += SwitchToMoveState;
         player.InputReader.OnSprintUpdated += HandleMoveSpeed;
 
-        moveSpeed = player.WalkSpeed;
-        player.Animator.CrossFadeInFixedTime("Move", 0.1f);
+
+        moveSpeed = player.CrouchWalkSpeed;
+        player.Animator.CrossFadeInFixedTime("CrouchMove", 0.1f);
     }
     public override void Exit()
     {
         base.Exit();
 
         player.InputReader.OnMoveCancelled -= SwitchToIdleState;
-        player.InputReader.OnCrouchUpdated -= SwitchToCrouchIdleState;
+        player.InputReader.OnCrouchUpdated -= SwitchToMoveState;
         player.InputReader.OnSprintUpdated -= HandleMoveSpeed;
 
     }
 
+    private void SwitchToMoveState(bool shouldCrouch)
+    {
+        if (!shouldCrouch)
+            statemachine.SwitchState(player.MoveState);
+    }
+
     private void HandleMoveSpeed(bool isSprinting)
     {
-        moveSpeed = isSprinting ? player.RunSpeed : player.WalkSpeed;
+        moveSpeed = isSprinting ? player.CrouchRunSpeed : player.CrouchWalkSpeed;
     }
 
-    private void SwitchToCrouchIdleState(bool shouldCrouch)
-    {
-        if (shouldCrouch)
-            statemachine.SwitchState(player.CrouchMoveState);
-    }
-
-
-    private void SwitchToIdleState() => statemachine.SwitchState(player.IdleState);
+    private void SwitchToIdleState() => statemachine.SwitchState(player.CrouchIdleState);
 
     public override void Update()
     {
@@ -59,7 +59,6 @@ public class PlayerMoveState : PlayerState
         Quaternion targetRotation = Quaternion.LookRotation(moveDir);
         player.transform.rotation = Quaternion.RotateTowards(player.transform.rotation, targetRotation, player.RotationSpeed * Time.deltaTime);
 
-        player.Animator.SetFloat("moveSpeed", moveSpeed, 0.1f, Time.deltaTime);
+        player.Animator.SetFloat("crouchMoveSpeed", moveSpeed, 0.1f, Time.deltaTime);
     }
-
 }
