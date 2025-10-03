@@ -1,9 +1,11 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class GhostProjectionHandler : MonoBehaviour
 {
     [SerializeField] GameObject targetModel;
     [SerializeField] Material ghostMaterial;
+    [SerializeField] string materialValueRef;
 
     public static GhostProjectionHandler Instance { get; private set; }
 
@@ -24,7 +26,7 @@ public class GhostProjectionHandler : MonoBehaviour
             InstantiateProjection();
     }
 
-    public void InstantiateProjection(float timeToDestroy = 5f)
+    public void InstantiateProjection(float timeToDestroy = 7.5f)
     {
         SkinnedMeshRenderer[] meshRenderers = targetModel.GetComponentsInChildren<SkinnedMeshRenderer>();
 
@@ -43,7 +45,16 @@ public class GhostProjectionHandler : MonoBehaviour
             newMeshRendrer.material = ghostMaterial;
             newMeshRendrer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 
-            Destroy(projectionObj, timeToDestroy);
+            // Fade the material alpha using DOTween
+            FadeProjectionMaterial(projectionObj, timeToDestroy, newMeshRendrer);
+
         }
+    }
+
+    private void FadeProjectionMaterial(GameObject projectionObj, float timeToFade, MeshRenderer newMeshRendrer)
+    {
+        float valueToAnimate = newMeshRendrer.material.GetFloat(materialValueRef);
+
+        DOVirtual.Float(1, 0, timeToFade, v => newMeshRendrer.material.SetFloat(materialValueRef, v)).OnComplete(() => Destroy(projectionObj));
     }
 }

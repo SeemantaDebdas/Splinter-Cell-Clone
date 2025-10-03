@@ -9,7 +9,7 @@ public class Awareness : MonoBehaviour
     private FieldOfView fieldOfView;
 
     // --- Configurable Values ---
-    [SerializeField] private float awarenessLevel = 0f;
+    [field: SerializeField] public float AwarenessLevel { get; private set; } = 0f;
     [SerializeField] private float awarenessChangeRate = 0.25f;
 
     // --- State ---
@@ -83,15 +83,15 @@ public class Awareness : MonoBehaviour
 
         while (true)
         {
-            awarenessLevel = Mathf.Clamp01(awarenessLevel + Time.deltaTime * rate);
+            AwarenessLevel = Mathf.Clamp01(AwarenessLevel + Time.deltaTime * rate);
 
-            if (increasing && awarenessLevel >= 1f)
+            if (increasing && AwarenessLevel >= 1f)
             {
                 OnAwarenessMaxed?.Invoke();
                 yield break;
             }
 
-            if (!increasing && awarenessLevel <= 0f)
+            if (!increasing && AwarenessLevel <= 0f)
             {
                 OnAwarenessEmptied?.Invoke();
                 yield break;

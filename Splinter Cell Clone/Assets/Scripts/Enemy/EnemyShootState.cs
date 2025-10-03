@@ -13,6 +13,9 @@ public class EnemyShootState : EnemyState
     {
         base.Enter();
 
+        enemy.Awareness.OnAwarenessDecreaseStart += Awareness_OnAwarenessDecreaseStart;
+        enemy.OnInvestigationUpdated += Enemy_OnInvestigationUpdated;
+
         enemy.Animator.SetLayerWeight(1, 1);
         enemy.Animator.CrossFadeInFixedTime("AimLocomotion", 0.1f);
     }
@@ -21,12 +24,24 @@ public class EnemyShootState : EnemyState
     {
         base.Exit();
 
+        enemy.Awareness.OnAwarenessDecreaseStart -= Awareness_OnAwarenessDecreaseStart;
+        enemy.OnInvestigationUpdated -= Enemy_OnInvestigationUpdated;
         enemy.Animator.SetLayerWeight(1, 0);
+    }
+
+    void Enemy_OnInvestigationUpdated() => statemachine.SwitchState(enemy.InvestigationState);
+    void Awareness_OnAwarenessDecreaseStart()
+    {
+        enemy.SetInvestigation(enemy.Awareness.LastKnownPlayerPosition, InvestigationType.LostPlayer);
+        GhostProjectionHandler.Instance.InstantiateProjection();
     }
 
     public override void Update()
     {
         base.Update();
+
+        if (enemy.Awareness.PlayerTarget == null)
+            return;
 
         Vector3 playerPosition = enemy.Awareness.PlayerTarget.position;
         enemy.FaceTarget(playerPosition);

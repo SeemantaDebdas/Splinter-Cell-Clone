@@ -43,9 +43,10 @@ GameObject:
   - component: {fileID: 8303699931754240115}
   - component: {fileID: 2874773654623902787}
   - component: {fileID: 357416643967257795}
+  - component: {fileID: 605217887411627321}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,6 +133,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &605217887411627321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6766160292548440054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420cabb5c3401dc448abb85ecd9b8e0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetModel: {fileID: 7856236273398322901}
+  ghostMaterial: {fileID: 2100000, guid: 9a197cac0c6f24a4dbfc734d8db92e16, type: 2}
+  materialValueRef: _Alpha
 --- !u!1001 &7045772309558143876
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -193,5 +209,10 @@ PrefabInstance:
 --- !u!4 &7371589846151875695 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0f07f937103f9fd49ab39adff0b97ddb, type: 3}
+  m_PrefabInstance: {fileID: 7045772309558143876}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7856236273398322901 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 0f07f937103f9fd49ab39adff0b97ddb, type: 3}
   m_PrefabInstance: {fileID: 7045772309558143876}
   m_PrefabAsset: {fileID: 0}
