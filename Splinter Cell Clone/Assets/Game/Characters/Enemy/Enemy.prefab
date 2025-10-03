@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 1547041118233962300}
   - component: {fileID: 5848381076701961654}
   - component: {fileID: 1658145390833540339}
+  - component: {fileID: 580778608273459391}
+  - component: {fileID: 6330817329932230175}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -98,6 +100,42 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  <ShootRadius>k__BackingField: 6
+--- !u!114 &580778608273459391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4602272202442582093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53e06d6bc69c9dc469cd95d5dfae6b11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 10
+  angle: 120
+  targetLayers:
+    serializedVersion: 2
+    m_Bits: 1
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  debugColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 0.39215687}
+--- !u!114 &6330817329932230175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4602272202442582093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e64f0c3644823964a987cb6316f130b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  awarenessLevel: 0
+  awarenessChangeRate: 0.25
 --- !u!1001 &4466272966544905436
 PrefabInstance:
   m_ObjectHideFlags: 0

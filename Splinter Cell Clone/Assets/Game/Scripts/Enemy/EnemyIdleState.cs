@@ -13,6 +13,7 @@ public class EnemyIdleState : EnemyState
 
         enemy.Awareness.OnAwarenessIncreaseStart += Awareness_OnAwarenessIncreaseStart;
 
+        enemy.Agent.ResetPath();
         stateTimer = enemy.IdleTime;
         enemy.Animator.CrossFadeInFixedTime("Idle", 0.1f);
 

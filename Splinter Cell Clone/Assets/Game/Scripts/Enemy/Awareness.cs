@@ -14,6 +14,7 @@ public class Awareness : MonoBehaviour
 
     // --- State ---
     public Transform PlayerTarget { get; private set; } = null;   // Null = not in sight
+    public Vector3 LastKnownPlayerPosition { get; private set; } = default;
     private Coroutine awarenessRoutine;
 
     // --- Events ---
@@ -68,6 +69,7 @@ public class Awareness : MonoBehaviour
         // Player just became invisible
         else if (foundPlayer == null && PlayerTarget != null)
         {
+            LastKnownPlayerPosition = PlayerTarget.position;
             PlayerTarget = null;
             OnAwarenessDecreaseStart?.Invoke();
             awarenessRoutine = StartCoroutine(UpdateAwarenessLevel(increasing: false));
