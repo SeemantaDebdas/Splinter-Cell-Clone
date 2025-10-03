@@ -1030,6 +1030,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6766160292548440054, guid: 287b7096d1d2b0e41b7fa68043fa95ab, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 9195938491820809123, guid: 287b7096d1d2b0e41b7fa68043fa95ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1083,6 +1087,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 580778608273459391, guid: bf329b1e9aab76541a64e0bb8760141f, type: 3}
+      propertyPath: angle
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 580778608273459391, guid: bf329b1e9aab76541a64e0bb8760141f, type: 3}
+      propertyPath: debugColor.a
+      value: 0.39215687
+      objectReference: {fileID: 0}
+    - target: {fileID: 580778608273459391, guid: bf329b1e9aab76541a64e0bb8760141f, type: 3}
+      propertyPath: targetLayers.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 580778608273459391, guid: bf329b1e9aab76541a64e0bb8760141f, type: 3}
+      propertyPath: obstacleLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 1658145390833540339, guid: bf329b1e9aab76541a64e0bb8760141f, type: 3}
       propertyPath: 'waypointList.Array.data[0]'
       value: 
@@ -1146,6 +1166,10 @@ PrefabInstance:
     - target: {fileID: 4602272202442582093, guid: bf329b1e9aab76541a64e0bb8760141f, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6330817329932230175, guid: bf329b1e9aab76541a64e0bb8760141f, type: 3}
+      propertyPath: awarenessFillRate
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

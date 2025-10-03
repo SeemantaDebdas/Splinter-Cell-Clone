@@ -16,7 +16,6 @@ public class PlayerState
 
     public virtual void Enter()
     {
-        Debug.Log("Entered" + this);
     }
 
     public virtual void Exit()

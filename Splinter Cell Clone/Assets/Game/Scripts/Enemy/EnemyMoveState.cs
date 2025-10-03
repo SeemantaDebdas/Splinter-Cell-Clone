@@ -10,8 +10,21 @@ public class EnemyMoveState : EnemyState
     {
         base.Enter();
 
+        enemy.Awareness.OnAwarenessIncreaseStart += Awareness_OnAwarenessIncreaseStart;
+
+        enemy.Agent.speed = 0.85f;
         enemy.Animator.CrossFadeInFixedTime("Move", 0.1f);
+        enemy.Animator.SetFloat("moveSpeed", enemy.Agent.speed);
     }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        enemy.Awareness.OnAwarenessIncreaseStart -= Awareness_OnAwarenessIncreaseStart;
+    }
+
+    void Awareness_OnAwarenessIncreaseStart() => statemachine.SwitchState(enemy.SuspiscionIdleState);
 
     public override void Update()
     {

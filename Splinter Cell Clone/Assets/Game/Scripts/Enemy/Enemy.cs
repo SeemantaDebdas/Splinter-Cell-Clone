@@ -4,19 +4,26 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Awareness))]
 public class Enemy : MonoBehaviour
 {
-    [Header("Movement")]
+    [field: Header("Movement")]
     [field: SerializeField] public float IdleTime { get; private set; }
     [SerializeField] List<Transform> waypointList;
     int currentWaypointIndex = 0;
 
+    [field: Header("Aggression")]
+    [field: SerializeField] public float ShootRadius { get; private set; } = 5f;
+
     public Animator Animator { get; private set; }
     public NavMeshAgent Agent { get; private set; }
+    public Awareness Awareness { get; private set; }
 
     protected EnemyStatemachine statemachine;
     public EnemyIdleState IdleState { get; private set; }
     public EnemyMoveState MoveState { get; private set; }
+    public EnemySuspiscionIdleState SuspiscionIdleState { get; private set; }
+    public EnemyChaseState ChaseState { get; private set; }
     private void Awake()
     {
         InitializeComponents();
@@ -32,6 +39,7 @@ public class Enemy : MonoBehaviour
     {
         Agent = GetComponent<NavMeshAgent>();
         Animator = GetComponent<Animator>();
+        Awareness = GetComponent<Awareness>();
     }
 
     private void InitializeStates()
@@ -40,6 +48,8 @@ public class Enemy : MonoBehaviour
 
         IdleState = new EnemyIdleState(this, statemachine);
         MoveState = new EnemyMoveState(this, statemachine);
+        SuspiscionIdleState = new EnemySuspiscionIdleState(this, statemachine);
+        ChaseState = new EnemyChaseState(this, statemachine);
 
         statemachine.Initialize(IdleState);
     }
