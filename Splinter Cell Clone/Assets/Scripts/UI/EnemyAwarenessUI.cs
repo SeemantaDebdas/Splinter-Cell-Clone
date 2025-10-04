@@ -9,11 +9,14 @@ public class EnemyAwarenessUI : MonoBehaviour
     [SerializeField] Slider questionSlider;
     [SerializeField] Image exclamationImage;
 
+    bool awarenessPeakLocked = false;
+
     void OnEnable()
     {
         awareness.OnAwarenessIncreaseStart += Awareness_OnAwarenessIncreaseStart;
         awareness.OnAwarenessEmptied += Awareness_OnAwarenessEmptied;
         awareness.OnAwarenessMaxed += Awareness_OnAwarenessMaxed;
+        awareness.OnAwarenessPeakLockToggled += Awareness_OnAwarenessPeakLockToggled;
 
         questionSlider.gameObject.SetActive(false);
         exclamationImage.rectTransform.localScale = Vector3.zero;
@@ -24,11 +27,14 @@ public class EnemyAwarenessUI : MonoBehaviour
         awareness.OnAwarenessIncreaseStart -= Awareness_OnAwarenessIncreaseStart;
         awareness.OnAwarenessEmptied -= Awareness_OnAwarenessEmptied;
         awareness.OnAwarenessMaxed -= Awareness_OnAwarenessMaxed;
-
+        awareness.OnAwarenessPeakLockToggled -= Awareness_OnAwarenessPeakLockToggled;
     }
 
     void Awareness_OnAwarenessMaxed()
     {
+        if (awarenessPeakLocked)
+            return;
+
         questionSlider.gameObject.SetActive(false);
 
         // DOTween pop animation
@@ -39,18 +45,28 @@ public class EnemyAwarenessUI : MonoBehaviour
 
     void Awareness_OnAwarenessIncreaseStart()
     {
+        if (awarenessPeakLocked)
+            return;
+
         questionSlider.gameObject.SetActive(true);
     }
 
     void Awareness_OnAwarenessEmptied()
     {
+        if (awarenessPeakLocked)
+            return;
+
         questionSlider.gameObject.SetActive(false);
     }
 
+    void Awareness_OnAwarenessPeakLockToggled(bool locked)
+    {
+        awarenessPeakLocked = locked;
+    }
 
     void Update()
     {
-        if (!awareness.gameObject.activeSelf)
+        if (!awareness.gameObject.activeSelf || awarenessPeakLocked)
             return;
 
         questionSlider.value = awareness.AwarenessLevel;

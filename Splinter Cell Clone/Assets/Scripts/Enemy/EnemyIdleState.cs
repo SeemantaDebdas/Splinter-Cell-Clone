@@ -16,7 +16,7 @@ public class EnemyIdleState : EnemyState
         enemy.Agent.ResetPath();
         stateTimer = enemy.IdleTime;
         enemy.Animator.CrossFadeInFixedTime("Idle", 0.1f);
-
+        enemy.Awareness.UnlockAwarenessFromPeak();
     }
 
     public override void Exit()

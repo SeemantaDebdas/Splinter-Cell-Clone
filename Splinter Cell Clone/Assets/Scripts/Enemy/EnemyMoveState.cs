@@ -15,6 +15,7 @@ public class EnemyMoveState : EnemyState
         enemy.Agent.speed = 0.85f;
         enemy.Animator.CrossFadeInFixedTime("Move", 0.1f);
         enemy.Animator.SetFloat("moveSpeed", enemy.Agent.speed);
+        enemy.Awareness.ResetAwarenessChangeRate();
     }
 
     public override void Exit()

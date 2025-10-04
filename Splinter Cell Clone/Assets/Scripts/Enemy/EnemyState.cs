@@ -27,4 +27,9 @@ public class EnemyState
     {
         stateTimer -= Time.deltaTime;
     }
+
+    public override string ToString()
+    {
+        return base.ToString().Replace("Enemy", "").Replace("State", "");
+    }
 }

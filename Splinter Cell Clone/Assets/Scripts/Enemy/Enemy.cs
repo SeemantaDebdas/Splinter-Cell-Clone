@@ -66,6 +66,8 @@ public class Enemy : MonoBehaviour
         statemachine.Initialize(IdleState);
     }
 
+    public EnemyState GetCurrentState() => statemachine.CurrentState;
+
     public Vector3 GetCurrentWaypoint()
     {
         return waypointList[currentWaypointIndex].position;

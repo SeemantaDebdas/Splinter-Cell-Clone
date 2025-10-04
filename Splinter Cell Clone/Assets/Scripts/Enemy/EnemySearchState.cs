@@ -15,6 +15,7 @@ public class EnemySearchState : EnemyState
     public override void Enter()
     {
         base.Enter();
+
         investigationCenter = enemy.Awareness.LastKnownPlayerPosition; // or set externally
         PickNewSearchPoint();
         searchTimer = searchDuration;
@@ -27,19 +28,21 @@ public class EnemySearchState : EnemyState
     {
         base.Exit();
 
+
         enemy.ClearInvestigation();
     }
+
 
     public override void Update()
     {
         base.Update();
 
-        // look for player OnAwarenessIncrease
-        // if (enemy.Awareness.PlayerTransform != null)
-        // {
-        //     statemachine.ChangeState(enemy.ChaseState);
-        //     return;
-        // }
+        //look for player OnAwarenessIncrease
+        if (enemy.Awareness.HasLineOfSightToPlayer)
+        {
+            statemachine.SwitchState(enemy.ChaseState);
+            return;
+        }
 
         // move around searching
         if (!enemy.Agent.pathPending && enemy.Agent.remainingDistance < 0.5f)

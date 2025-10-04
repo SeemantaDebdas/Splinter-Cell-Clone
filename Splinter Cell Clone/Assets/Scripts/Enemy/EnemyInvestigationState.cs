@@ -30,11 +30,25 @@ public class EnemyInvestigationState : EnemyState
         }
 
         hasReachedInvestigationPoint = false;
+        enemy.Awareness.LockAwarenessAtPeak();
+    }
+    public override void Exit()
+    {
+        base.Exit();
+
+        enemy.ClearInvestigation();
     }
 
     public override void Update()
     {
         base.Update();
+
+        //look for player OnAwarenessIncrease
+        if (enemy.Awareness.HasLineOfSightToPlayer)
+        {
+            statemachine.SwitchState(enemy.ChaseState);
+            return;
+        }
 
         // If reached investigation spot
         if (!enemy.Agent.pathPending && enemy.Agent.remainingDistance <= enemy.Agent.stoppingDistance && !hasReachedInvestigationPoint)
@@ -56,9 +70,5 @@ public class EnemyInvestigationState : EnemyState
     }
 
 
-    public override void Exit()
-    {
-        base.Exit();
-        enemy.ClearInvestigation();
-    }
+
 }
